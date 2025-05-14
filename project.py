@@ -268,7 +268,7 @@ def test():
         for question_key in questions:
             user_answer = request.form.get(question_key)
             if user_answer:
-		    answers_user[question_key] = user_answer
+                    answers_user[question_key] = user_answer
                 if user_answer in questions[question_key]["professions"]:
                     suggested_professions.extend(questions[question_key]["professions"][user_answer])
             if not suggested_professions:
