@@ -2,20 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import random
 from collections import Counter
 
-app = Flask(__name__)
-
-<form name="contact" netlify>
-  <p>
-    <label>Name <input type="text" name="name" /></label>
-  </p>
-  <p>
-    <label>Email <input type="email" name="email" /></label>
-  </p>
-  <p>
-    <button type="submit">Send</button>
-  </p>
-</form>
-           
+app = Flask(__name__)            
 questions = {
 "q1": {
         "text": "Вам нравится работать с людьми?",
@@ -288,11 +275,16 @@ def test():
         profession_counts = Counter(suggested_professions)
         sorted_professions = profession_counts.most_common(5)
 
-        return render_template("results.html", professions=sorted_professions)
+        return redirect((url_for('results', professions=sorted_professions))
 
     question_keys = list(questions.keys())
     random.shuffle(question_keys)
     return render_template("test.html", questions=questions, question_keys=question_keys)
+@app.route("/results")
+def results()
+    professions=
+  request.arg.getlist('professions')
+return render_template("results.html", professions=professions)
 
 if __name__ == "__main__":
     app.run(debug=True)
