@@ -275,7 +275,7 @@ def test():
         profession_counts = Counter(suggested_professions)
         sorted_professions = profession_counts.most_common(5)
 
-        return redirect((url_for('results', professions=sorted_professions))
+        return redirect(url_for('results', professions=sorted_professions))
 
     question_keys = list(questions.keys())
     random.shuffle(question_keys)
