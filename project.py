@@ -262,31 +262,32 @@ questions = {
 @app.route("/", methods=["GET", "POST"])
 def test():
     if request.method == "POST":
-        answers = {}
+        answers_user = {}
         suggested_professions = []
-        for key in questions:
-            user_answer = request.form.get(key)
+	    
+        for question_key in questions:
+            user_answer = request.form.get(question_key)
             if user_answer:
-                answers[key] = user_answer
-                suggested_professions.extend(questions[key]["professions"][user_answer])
-            else:
-                return render_template("test.html", questions=questions, question_keys=list(questions.keys()), error="Пожалуйста, ответьте на все вопросы.")
+                answers_user[question_key] = user_answer
+	        if user_answer in questions[question_key]["professions"]:
+                suggested_professions.extend(questions[question_key]["professions"][user_answer])
+            if not suggested_professions:
+                return redirect(url_for('results', professions=[]))
 
         profession_counts = Counter(suggested_professions)
-        sorted_professions = profession_counts.most_common(5)
+        sorted_professions_with_counts = profession_counts.most_common(5)
+	    top_professions_names = [prof[0] for prof in sorted_professions_with_counts] 
 
-        return redirect(url_for('results', professions=sorted_professions))
+        return redirect(url_for('results', professions=top_professions_names))
 
     question_keys = list(questions.keys())
     random.shuffle(question_keys)
     return render_template("test.html", questions=questions, question_keys=question_keys)
+	
 @app.route("/results")
 def results():
-	professions = []
-request.arg.getlist('professions')
-    return render_template("results.html", professions_data=professions)
+	professions_from_url = request.args.getlist('professions')
+    return render_template("results.html", professions_data=professions_from_url)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
