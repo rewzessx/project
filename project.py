@@ -281,7 +281,7 @@ def test():
     random.shuffle(question_keys)
     return render_template("test.html", questions=questions, question_keys=question_keys)
 @app.route("/results")
-def results()
+def results():
     professions=
   request.arg.getlist('professions')
 return render_template("results.html", professions=professions)
