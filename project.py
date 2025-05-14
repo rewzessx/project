@@ -282,9 +282,9 @@ def test():
     return render_template("test.html", questions=questions, question_keys=question_keys)
 @app.route("/results")
 def results():
-    professions=
-  request.arg.getlist('professions')
-return render_template("results.html", professions=professions)
+	professions= 
+	request.arg.getlist('professions')
+    return render_template("results.html", professions_data=professions)
 
 if __name__ == "__main__":
     app.run(debug=True)
