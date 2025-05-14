@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Профориентационный тест</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; }
+        .error { color: red; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Профориентационный тест</h1>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% for key in question_keys %}
+                <div>
+                    <p>{{ questions[key].text }}</p>
+                    <select name="{{ key }}" required>
+                        <option value="">Выберите вариант</option>
+                        {% for option, text in questions[key].options.items() %}
+                            <option value="{{ option }}">{{ text }}</option>
+                        {% endfor %}
+                    </select>
+                </div><br>
+            {% endfor %}
+            <button type="submit" class="button button-outline">Получить результаты</button>
+        </form>
+    </div>
+</body>
+</html>

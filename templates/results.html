@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты теста</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .result-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Результаты теста</h1>
+
+        <div class="results">
+            {% for profession, count in professions %}
+                <div class="result-item">
+                    <div class="result-title">{{ profession }}: {{ count }}</div>
+                     {% if professions_info.get(profession) %}
+                        <p>{{ professions_info[profession].description }}</p>
+                        <a href="{{ professions_info[profession].link }}" target="_blank" class="btn btn-primary">Узнать больше</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2>Вопросы и ответы:</h2>
+        <ol>
+            {% for key in question_keys %}
+                <li>{{ questions[key].text }}</li>
+                <p>Ваш ответ: {{ answers.get(key) }}</p>
+                <ul>
+                    {% for option, professions_list in questions[key]['professions'].items() %}
+                    <li>{{ option }}: 
+                        {% for p in professions_list %}
+                            {{ p }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+
+        </ol>
+    </div>
+
+</body>
+</html>
