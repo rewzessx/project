@@ -269,14 +269,14 @@ def test():
             user_answer = request.form.get(question_key)
             if user_answer:
                     answers_user[question_key] = user_answer
-                if user_answer in questions[question_key]["professions"]:
+            if user_answer in questions[question_key]["professions"]:
                     suggested_professions.extend(questions[question_key]["professions"][user_answer])
             if not suggested_professions:
-		    return redirect(url_for('results', professions=[]))
+              return redirect(url_for('results', professions=[]))
 
         profession_counts = Counter(suggested_professions)
         sorted_professions_with_counts = profession_counts.most_common(5)
-	    top_professions_names = [prof[0] for prof in sorted_professions_with_counts] 
+        top_professions_names = [prof[0] for prof in sorted_professions_with_counts] 
 
         return redirect(url_for('results', professions=top_professions_names))
 
@@ -286,8 +286,8 @@ def test():
 	
 @app.route("/results")
 def results():
-	professions_from_url = request.args.getlist('professions')
-    return render_template("results.html", professions_data=professions_from_url)
+    professions_from_url = request.args.getlist('professions')
+    return render_template("results.html", professions_data=professions_from_url) 
 
 if __name__ == "__main__":
     app.run(debug=True)
