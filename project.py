@@ -276,8 +276,9 @@ def test():
 
         profession_counts = Counter(suggested_professions)
         sorted_professions_with_counts = profession_counts.most_common(5)
-        top_professions_names = [prof[0] for prof in sorted_professions_with_counts] 
-
+        top_professions_names = [prof[0] for prof in sorted_professions_with_counts]
+	    
+        print[suggested_professions]
         return redirect(url_for('results', professions=top_professions_names))
 
     question_keys = list(questions.keys())
