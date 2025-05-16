@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Результаты тестирования</title>
-
 </head>
 <body>
     <h1>Результаты теста</h1>
 
-    {% if professions_data and professions_data|length > 0 %}
-        <p>На основе ваших ответов, вам рекомендуются следующие профессии:</p>
-        <ul>
-            {% for profession_name in professions_data %}
-                <li>{{ profession_name }}</li>
-            {% endfor %}
-        </ul>
+    {% if professions_data %}
+        {% if professions_data | length > 0 %}
+            <p>На основе ваших ответов, вам рекомендуются следующие профессии:</p>
+            <ul>
+                {% for profession in professions_data %}
+                    <li>{{ profession }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>К сожалению, на основе ваших ответов мы не смогли подобрать рекомендации.</p>
+        {% endif %}
+
     {% else %}
-        <p>К сожалению, на основе ваших ответов мы не смогли подобрать рекомендации. Возможно, стоит попробовать пройти тест еще раз или ответить на большее количество вопросов.</p>
-        <p>Или вы еще не прошли тест. Пожалуйста, <a href="{{ url_for('test.html') }}">пройдите тест</a>.</p> 
+        <p>Вы еще не прошли тест. Пожалуйста, <a href="{{ url_for('test') }}">пройдите тест</a>.</p>
     {% endif %}
 
 </body>
